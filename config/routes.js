@@ -24,12 +24,33 @@ function register(req, res) {
 				res.status(500).json({ error: 'error trying to register user' });
 			});
 	} else {
-		res.status(400).json({ message: 'please provide username and password' });
+		res.status(400).json({ message: 'please provide username and password for register' });
 	}
 }
 
-function login(req, res) {
+async function login(req, res) {
 	// implement user login
+	const bodyData = req.body;
+
+	if (bodyData.username && bodyData.password) {
+		try {
+			const user = await db('users').where({ username: bodyData.username }).first();
+
+			if (user && bcrypt.compareSync(bodyData.password, user.password)) {
+				const token = generateToken(user);
+				res.status(200).json({
+					message: `Welcome ${user.username}, here is the token :D `,
+					token: token
+				});
+			} else {
+				res.status(401).json({ message: 'Invalid credentials' });
+			}
+		} catch (error) {
+			res.status(500).json({ error: 'error trying to login user' });
+		}
+	} else {
+		res.status(400).json({ message: 'please provide username and password for login' });
+	}
 }
 
 function getJokes(req, res) {
