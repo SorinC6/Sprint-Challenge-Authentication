@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 //import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import axiosWithAuth from '../axios/axios';
+import Joke from './Joke';
 
 const Users = (props) => {
 	const [ jokes, setJokes ] = useState([]);
@@ -27,7 +28,7 @@ const Users = (props) => {
 	return (
 		<div>
 			<button onClick={onLogout}>Logout</button>
-			{/* {jokes.map((j) => <Joke key={j.id} username={user.username} departament={user.departament} />)} */}
+			{jokes.map((j) => <Joke key={j.id} joke={j.joke} />)}
 		</div>
 	);
 };
