@@ -10,13 +10,13 @@ class App extends Component {
 		return (
 			<div className="App">
 				<h1>Dad Jokes - Sprint Challenge</h1>
-{/* 
+
 				<Route
 					exact
 					path="/jokes"
 					render={(props) =>
 						localStorage.getItem('token') ? <JokesList {...props} /> : <Redirect to="/login" />}
-				/> */}
+				/>
 
 				<div>
 					<Route path="/register" component={Register} />
